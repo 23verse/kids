@@ -1,0 +1,193 @@
+---
+documentclass: book
+classoption: oneside
+title: "Genetic prioritisation reveals tractable therapeutic targets for kidney stone disease"
+author: |
+ | National Research Centre for Translational Medicine, Ruijin Hospital, Shanghai Jiao Tong University School of Medicine
+date: "`r Sys.Date()`"
+vignette: >
+ %\VignetteIndexEntry{KSD Booklet}
+ %\VignetteEngine{knitr::rmarkdown}
+ %\VignetteEncoding{UTF-8}
+output: 
+  BiocStyle::html_document:
+        toc: true
+        toc_depth: 3
+        number_sections: true
+        theme: journal
+        highlight: monochrome
+        toc_float: true
+        code_folding: hide
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(collapse=TRUE, comment="##")
+knitr::opts_chunk$set(dpi=300)
+knitr::opts_chunk$set(cache=FALSE)
+knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_chunk$set(warning=FALSE)
+knitr::opts_chunk$set(message=FALSE)
+knitr::opts_chunk$set(fig_cap="yes")
+knitr::opts_chunk$set(eval=F)
+```
+
+
+# Abstract {#index}
+
+Formation of kidney stones resulting in urological disorders remains a major cause of morbidity in renal and cardiovascular diseases. Innate immunity (mainly NLRP3 inflammasome) has demonstrated a key role in the development of kidney stone disease ([KSD](https://www.nhs.uk/conditions/Kidney-stones/)) but a molecular rationale for new therapeutic intervention is lacking. We hypothesized that identifying inflammatory gene networks underlying risk of nephrolithiasis would inform therapeutic targets for rational drug selection. Using our recently developed genetics-led target prioritisation approach ([Pi](https://pubmed.ncbi.nlm.nih.gov/31253980)) and taking as inputs the most comprehensive summary statistics from nephrolithiasis genome-wide association studies (for example, [the most recent](https://pubmed.ncbi.nlm.nih.gov/31729369)), we generated a ranked list of >15,000 target genes (see [List of prioritised target genes]). The top ranked targets were highly enriched for genes involved in TRAF6- or TNFR1-induced NF-kappa B activation (see [List of prioritised pathways]), including BIRC2/3, IKBKB/G, NFKB1/2, NFKBIA/B, TRAF1/2/6, MYD88 and TNF. We further identified a network of highly ranked and interconnecting genes (see [Gene network]) that could be repurposed to reveal tractable points for intervention (see [Drug repurposing]). Network genes could be targeted by drugs already in clinical use (BCL2 targeted in chronic lymphocytic leukemia, SRC in chronic myelogenous leukemia and thyroid carcinoma, and TYK2 in rheumatoid arthritis). We found the highest degree of support from preclinical (phased) drug targets; these included genes (AKT1, MAPK14 and MMP9) targeted by drugs in clinical phase III, and the gene BIRC3 by a cIAP1/cIAP2 inhibitor in clinical phase II. Taken together, targets and drugs prioritised in this study provide the rich information of how to target innate immune pathways, with the potential of advancing therapeutic strategies for kidney stone disease. The data supporting the findings of this study are made available at https://23verse.github.io/fungi. Please email [us](mailto:fh12355@rjh.com.cn) for greater details.
+
+```{r, eval=FALSE, echo=FALSE}
+cd ~/Sites/XGR/KSD/BOOKLET
+################################################
+R
+library(tidyverse)
+
+## load
+load("now.KSD_booklet.RData")
+
+## save
+save(list=ls(), file="now.KSD_booklet.RData", compress="xz")
+
+## bookdown::render_book + bookdown::gitbook
+## use configuration in '_output.yml' and '_bookdown.yml'
+bookdown::render_book("now.KSD_booklet.Rmd", c("bookdown::gitbook","bookdown::pdf_book","bookdown::tufte_html_book")[1])
+
+q('no')
+
+####################################################
+
+##########################
+https://23verse.github.io/ksd
+##########################
+## bookdown::render_book + bookdown::gitbook
+cd ~/Sites/SVN/github/ksd
+# delete previous *.html *.png *.css *.js *.ttf *.Rmd files *.yml files
+find ./ -type f -name '*.html' -o -type f -name '*.png' -o -type f -name '*.css' -o -type f -name '*.js' -o -type f -name '*.ttf' -o -type f -name '*.Rmd' -o -type f -name '*.yml' -o -type f -name '*.RDS' -o -type f -name '*.r' | xargs rm -rf
+############
+# copy the whole package from ~/Sites/XGR/KSD/BOOKLET/KSD2booklet to ~/Sites/SVN/github/ksd
+cp -rf ~/Sites/XGR/KSD/BOOKLET/KSD2booklet/* ./
+# copy/rename ~/Sites/XGR/KSD/BOOKLET/now.KSD_booklet.Rmd to ~/Sites/SVN/github/ksd/ksd.Rmd
+cp -rf ~/Sites/XGR/KSD/BOOKLET/now.KSD_booklet.Rmd ./ksd.Rmd
+cp -rf ~/Sites/XGR/KSD/BOOKLET/_bookdown.yml ./_bookdown.yml
+cp -rf ~/Sites/XGR/KSD/BOOKLET/_output.yml ./_output.yml
+# add new *.html *.png *.css *.js *.ttf *.Rmd *.yml files
+git status | grep 'modified' | awk '{print $2}' | xargs git add
+git status | grep 'deleted' | awk '{print $2}' | xargs git rm
+find ./ -type f -name '*.html' -o -type f -name '*.png' -o -type f -name '*.css' -o -type f -name '*.js' -o -type f -name '*.ttf' -o -type f -name '*.Rmd' -o -type f -name '*.yml' -o -type f -name '*.RDS' -o -type f -name '*.r' | xargs git add
+git add --all
+git commit -m 'Update fungi'
+git push origin main
+##########################
+
+####################################################
+## GitHub Pages
+
+One site per account but unlimited projects can be created from https://pages.github.com:
+
+> **One site `https://github.com/23verse/23verse.github.io`**
+
+# visit https://github.com/new (enter "23verse.github.io" -> Initialize this repository with a README)
+# clone into the local machine 
+cd ~/Sites/SVN/github
+git clone git@github.com:23verse/23verse.github.io
+cd ~/Sites/SVN/github/23verse.github.io
+git pull origin master
+## https://github.com/23verse/23verse.github.io/settings/access: add "hfang-bristol"
+echo "Hello 23verse" > index.html
+git add --all
+git commit -m 'Initial commit'
+git push origin master
+# Alive (https://23verse.github.io)
+
+> **A project `https://github.com/23verse/ksd`**
+
+# visit https://github.com/new (enter "ksd" -> Initialize this repository with a README)
+## https://github.com/23verse/ksd/settings/access: add "hfang-bristol"
+# clone into the local machine 
+cd ~/Sites/SVN/github
+git clone git@github.com:23verse/ksd.git
+cd ~/Sites/SVN/github/ksd
+git pull origin main
+echo "Hello ksd" > index.html
+git add --all
+git commit -m 'Initial commit'
+git push origin main
+# visit https://github.com/23verse/ksd/settings -> GitHub Pages (main/root)
+# Alive (https://23verse.github.io/ksd): Genetic prioritisation for kidney stone disease
+####################################################
+
+
+```
+
+```{r, eval=F, echo=F}
+library(tidyverse)
+RData.location <- "~/Sites/XGR/KSD/BOOKLET"
+```
+
+```{r, eval=F, echo=F}
+## KSD_priority.txt.gz
+cp ~/Databases/grant_app/jobs/Oxford/Oxford_Wellcome_Trust_Centre_for_Human_Genetics/ULTRA-DD/FrontierImmunology/KidneyStone/KSD_priority.txt.gz ~/Sites/XGR/KSD/BOOKLET
+
+## KSD_reactome.txt
+cp ~/Databases/grant_app/jobs/Oxford/Oxford_Wellcome_Trust_Centre_for_Human_Genetics/ULTRA-DD/FrontierImmunology/KidneyStone/KSD_reactome.txt ~/Sites/XGR/KSD/BOOKLET
+
+## KSD_subg_nodes.txt
+cp ~/Databases/grant_app/jobs/Oxford/Oxford_Wellcome_Trust_Centre_for_Human_Genetics/ULTRA-DD/FrontierImmunology/KidneyStone/KSD_subg_nodes.txt ~/Sites/XGR/KSD/BOOKLET
+
+## Crosstalk.approved_phased.txt
+cp ~/Databases/grant_app/jobs/Oxford/Oxford_Wellcome_Trust_Centre_for_Human_Genetics/ULTRA-DD/FrontierImmunology/KidneyStone/Crosstalk.approved_phased.txt ~/Sites/XGR/KSD/BOOKLET
+
+```
+
+
+# List of prioritised target genes
+
+Summary statistics from nephrolithiasis genome wide association studies was used to prioritise >15,000 target genes. Target genes are ranked by 5-star rating (see the column `Rating`).
+
+```{r, echo=FALSE, eval=T}
+read_delim("KSD_priority.txt.gz", delim="\t") %>% transmute(Target=name, Rank=rank, Rating=signif(rating,digits=4), Description=description) %>% DT::datatable(options=list(pageLength=10,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```
+
+
+# List of prioritised pathways
+
+The top ranked targets (~150) were highly enriched for genes involved in TRAF6- or TNFR1-induced NF-kappa B activation, including BIRC2/3, IKBKB/G, NFKB1/2, NFKBIA/B, TRAF1/2/6, MYD88 and TNF. 
+
+```{r pathway, fig.cap="", fig.width=9, fig.height=3, echo=FALSE, eval=T, fig.align="center",out.width="100%"}
+library(png)
+library(grid)
+img <- readPNG("booklet.KSD.pathway.png")
+grid.raster(img)
+```
+
+Pathways and their gene members can be explored below.
+
+```{r, echo=FALSE, eval=T}
+read_delim("KSD_reactome.txt", delim="\t") %>% top_n(10,or) %>% transmute(Pathway=name, log2OR=or, FDR=adjp, Genes=members_Overlap) %>% DT::datatable(options=list(pageLength=10,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```
+
+
+# Gene network
+
+A network of highly ranked and interconnecting genes was identified containing 30 genes and 62 interactions. Genes colored by 5-star rating (also labelled in the form of `[rating@rank]`), and interactions derived from KEGG pathway map.
+
+```{r subnetwork, fig.cap="", fig.width=6, fig.height=6, echo=FALSE, eval=T, fig.align="center",out.width="90%"}
+library(png)
+library(grid)
+img <- readPNG("booklet.KSD.subnetwork.png")
+grid.raster(img)
+```
+
+Network genes shown above can be searched and downloaded below.
+
+```{r, echo=FALSE, eval=T}
+read_delim("KSD_subg_nodes.txt", delim="\t") %>% transmute(Target=name, Rank=rank, Rating=signif(rating,digits=4), Description=description) %>% DT::datatable(options=list(pageLength=10,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```
+
+# Drug repurposing
+
+According to the ChEMBL database, network genes are linked to targets of approved drugs and preclinical (phased) drugs. 
+
+```{r, echo=FALSE, eval=T}
+read_delim("Crosstalk.approved_phased.txt", delim="\t") %>% select(Target, Disease, Drug, Phase) %>% DT::datatable(options=list(pageLength=10,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+```
