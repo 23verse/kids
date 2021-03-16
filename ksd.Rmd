@@ -1,9 +1,11 @@
 ---
 documentclass: book
 classoption: oneside
-title: "Genetic prioritisation reveals tractable therapeutic targets for kidney stone disease"
+title: "Genetic prioritisation, therapeutic repositioning and cross-disease comparisons implicate inflammatory targets tractable for kidney stone disease"
 author: |
  | National Research Centre for Translational Medicine, Ruijin Hospital, Shanghai Jiao Tong University School of Medicine
+ | Bristol Renal Unit, Translational Health Sciences, University of Bristol, Bristol, UK
+ | Department of Physiology Anatomy and Genetics, University of Oxford, Oxford, UK
 date: "`r Sys.Date()`"
 vignette: >
  %\VignetteIndexEntry{KSD Booklet}
