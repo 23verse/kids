@@ -1,2 +1,2 @@
 # ksd
-Genetic prioritisation for kidney stone disease
+Genetic prioritisation for kidney stone disease (nephrolithiasis)
