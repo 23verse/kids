@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Genetic prioritisation, therapeutic repositioning and cross-disease comparisons reveal inflammatory targets tractable for kidney stone disease</title>
-  <meta name="description" content="Genetic prioritisation, therapeutic repositioning and cross-disease comparisons reveal inflammatory targets tractable for kidney stone disease" />
+  <title>Section 3 Pathway crosstalk | Genetic prioritisation, therapeutic repositioning and cross-disease comparisons reveal inflammatory targets tractable for kidney stone disease</title>
+  <meta name="description" content="Section 3 Pathway crosstalk | Genetic prioritisation, therapeutic repositioning and cross-disease comparisons reveal inflammatory targets tractable for kidney stone disease" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Genetic prioritisation, therapeutic repositioning and cross-disease comparisons reveal inflammatory targets tractable for kidney stone disease" />
+  <meta property="og:title" content="Section 3 Pathway crosstalk | Genetic prioritisation, therapeutic repositioning and cross-disease comparisons reveal inflammatory targets tractable for kidney stone disease" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Genetic prioritisation, therapeutic repositioning and cross-disease comparisons reveal inflammatory targets tractable for kidney stone disease" />
+  <meta name="twitter:title" content="Section 3 Pathway crosstalk | Genetic prioritisation, therapeutic repositioning and cross-disease comparisons reveal inflammatory targets tractable for kidney stone disease" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="genetic-prioritisation.html"/>
+<link rel="prev" href="genetic-prioritisation.html"/>
+<link rel="next" href="cross-disease-comparisons.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -189,28 +189,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Genetic prioritisation, therapeutic repositioning and cross-disease comparisons reveal inflammatory targets tractable for kidney stone disease</h1>
-</div>
-<div id="index" class="section level1" number="1">
-<h1><span class="header-section-number">Section 1</span> Overview</h1>
-<div id="contribution" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Contribution</h2>
-<div class="figure" style="text-align: center"><span id="fig:logo"></span>
-<img src="KSD_files/figure-html/logo-1.png" alt="Logo designed for the project webpage here (https://23verse.github.io/kids)." width="30%" />
+<div id="pathway-crosstalk" class="section level1" number="3">
+<h1><span class="header-section-number">Section 3</span> Pathway crosstalk</h1>
+<div class="figure" style="text-align: center"><span id="fig:crosstalk"></span>
+<img src="KSD_files/figure-html/crosstalk-1.png" alt="Gene-centric representation of the crosstalk, with nodes for genes and edges for interactions between nodes. Node are labelled by gene symbols along with the priority information (formatted as `[rating@rank]`) and color-coded by priority rating, and interactions derived from KEGG pathway map." width="60%" />
 <p class="caption">
-Figure 1.1: Logo designed for the project webpage here (<a href="https://23verse.github.io/kids" class="uri">https://23verse.github.io/kids</a>).
+Figure 3.1: Gene-centric representation of the crosstalk, with nodes for genes and edges for interactions between nodes. Node are labelled by gene symbols along with the priority information (formatted as <code>[rating@rank]</code>) and color-coded by priority rating, and interactions derived from KEGG pathway map.
 </p>
 </div>
-<p>Inflammatory response plays a key role in kidney stone formation, and targeting innate immunity is an increasingly appreciated immunotherapeutic strategy in treating and preventing kidney stone disease. This study shows that identification of crosstalk between inflammatory pathways underlying disease risk can inform therapeutic targets for rational drug selection. To highlight this utility, we identify ulixertinib and losmapimod, two inhibitors of inflammatory mediators that are now under clinical investigation. An atlas of genetic targets, together with candidate drugs we reposition here, can be of translational use to manage kidney stones for years to come.</p>
+<div id="identify-crosstalk" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Identify crosstalk</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="pathway-crosstalk.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gene interaction information merged from KEGG pathways</span></span>
+<span id="cb3-2"><a href="pathway-crosstalk.html#cb3-2" aria-hidden="true" tabindex="-1"></a>ls_ig <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">c</span>(<span class="st">&quot;KEGG_environmental&quot;</span>,<span class="st">&quot;KEGG_organismal&quot;</span>), <span class="cf">function</span>(network){</span>
+<span id="cb3-3"><a href="pathway-crosstalk.html#cb3-3" aria-hidden="true" tabindex="-1"></a>    g <span class="ot">&lt;-</span> <span class="fu">xDefineNet</span>(<span class="at">network=</span>network, <span class="at">guid=</span>guid)</span>
+<span id="cb3-4"><a href="pathway-crosstalk.html#cb3-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb3-5"><a href="pathway-crosstalk.html#cb3-5" aria-hidden="true" tabindex="-1"></a>ig <span class="ot">&lt;-</span> <span class="fu">xCombineNet</span>(ls_ig)</span>
+<span id="cb3-6"><a href="pathway-crosstalk.html#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="pathway-crosstalk.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># keep the largest component</span></span>
+<span id="cb3-8"><a href="pathway-crosstalk.html#cb3-8" aria-hidden="true" tabindex="-1"></a>ig2 <span class="ot">&lt;-</span> <span class="fu">dNetInduce</span>(<span class="at">g=</span>ig, <span class="at">nodes_query=</span><span class="fu">V</span>(ig)<span class="sc">$</span>name) <span class="sc">%&gt;%</span> <span class="fu">as.undirected</span>()</span>
+<span id="cb3-9"><a href="pathway-crosstalk.html#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="pathway-crosstalk.html#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># search for a subset (with a desired node number [30,35]) of the gene network </span></span>
+<span id="cb3-11"><a href="pathway-crosstalk.html#cb3-11" aria-hidden="true" tabindex="-1"></a>subg <span class="ot">&lt;-</span> <span class="fu">xPierSubnet</span>(dTarget, <span class="at">network.customised=</span>ig2, <span class="at">subnet.size=</span><span class="dv">50</span>)</span>
+<span id="cb3-12"><a href="pathway-crosstalk.html#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="pathway-crosstalk.html#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># write into a file &#39;subg_nodes.txt&#39;</span></span>
+<span id="cb3-14"><a href="pathway-crosstalk.html#cb3-14" aria-hidden="true" tabindex="-1"></a>dTarget<span class="sc">$</span>priority <span class="sc">%&gt;%</span> <span class="fu">select</span>(name,rank,rating,description) <span class="sc">%&gt;%</span> <span class="fu">semi_join</span>(<span class="fu">tibble</span>(<span class="at">name=</span><span class="fu">V</span>(subg)<span class="sc">$</span>name), <span class="at">by=</span><span class="st">&#39;name&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">write_delim</span>(<span class="st">&quot;outputs/subg_nodes.txt&quot;</span>, <span class="at">delim=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>)</span></code></pre></div>
 </div>
-<div id="abstract" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Abstract</h2>
-<ul>
-<li><p><strong>Background</strong>: Formation of kidney stones resulting in urological disorders remains a major cause of morbidity in renal diseases and many others. Innate immunity, mainly inflammasome, has demonstrated a key role in the development of <a href="https://www.nhs.uk/conditions/Kidney-stones/">kidney stone disease</a> (or <code>nephrolithiasis</code>) but a molecular rationale for therapeutic intervention targeting immunity is far from clear. We reason that identifying inflammatory gene networks underlying risk of nephrolithiasis would inform therapeutic targets for rational drug selection.</p></li>
-<li><p><strong>Results</strong>: Using our recently established genetics-led target prioritisation approach (<a href="https://pubmed.ncbi.nlm.nih.gov/31253980">Pi</a>) applied to summary data from genome-wide association studies in nephrolithiasis (for example, <a href="https://pubmed.ncbi.nlm.nih.gov/31729369">the most recent</a>), we generated a ranked list of ~12,500 target genes (see <a href="genetic-prioritisation.html#genetic-prioritisation">Genetic prioritisation</a>), with the top ranked targets highly enriched for genes involved in the NF-kB regulation, including interaction neighbors of inflammasome genes. We identified a network of highly ranked and interconnecting genes that are of functional relevance to nephrolithiasis, such as those involved in autophagy (MTOR and SQSTM1). The identified network forms a cohesive crosstalk between inflammatory pathways (see <a href="pathway-crosstalk.html#pathway-crosstalk">Pathway crosstalk</a>) that can be utilised for therapeutic repositioning. Coupled with removal analysis, these crosstalk genes can be also useful for combinatorial drug selection, including identification of ulixertinib (targeting MAPK3) and losmapimod (targeting MAPK14) that are both under clinical investigation as inhibitors of inflammatory mediators. Finally, we performed cross-disease comparisons and druggable pocket predictions, identifying inflammatory targets that are specific to and tractable for nephrolithiasis (see <a href="cross-disease-comparisons.html#cross-disease-comparisons">Cross-disease comparisons</a>).</p></li>
-<li><p><strong>Conclusion</strong>: Taken together, genetic targets prioritised and candidate drugs repositioned in this study provide the rich information of how to target innate immune pathways, with the potential of advancing immunotherapeutic strategies for nephrolithiasis. The data supporting our findings are made publicly available at <a href="https://23verse.github.io/kids" class="uri">https://23verse.github.io/kids</a>. Please email <a href="mailto:fh12355@rjh.com.cn">us</a> for more information.</p></li>
-</ul>
+<div id="crosstalk-genes" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Crosstalk genes</h2>
+<p>Network genes identified above (<code>subg_nodes.txt</code>) can be explored:</p>
+<div id="htmlwidget-987aef566749afaff3f2" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-987aef566749afaff3f2">{"x":{"filter":"none","extensions":["Buttons"],"caption":"<caption><\/caption>","data":[["NFKBIA","MAX","NFKB1","TP53","TRAF6","CD40LG","MALT1","CD40","TYK2","TICAM1","MYC","LYN","RELA","RELB","CARD11","PRKCB","PDPK1","IKBKE","BIRC3","RIPK3","CREBBP","TLR3","ZBP1","MYD88","SRC","NFKB2","MAPK14","BCL3","LCK","PIK3CA","IKBKB","TRAF3","TRAF1","CFLAR","CHUK","PIK3R1","FBXW11","IKBKG","TBK1","NFKBIB","BCL10","RIPK1","PRKCZ","PRKCA","TRAF2","SQSTM1","JAK2","TNFRSF1A","MTOR","GAPDH","MAPK3","CTNNB1","PRKACA"],[5,6,7,9,10,11,12,13,15,16,17,18,19,21,26,27,28,36,37,39,40,41,43,44,45,46,47,48,49,51,54,55,56,58,59,61,62,63,64,65,68,70,72,74,75,77,85,86,90,92,93,114,228],[4.503,4.478,4.454,3.554,3.499,3.443,3.373,3.346,3.341,3.319,3.306,3.303,3.291,3.25,3.228,3.206,3.167,3.13,3.118,3.115,3.112,3.11,3.109,3.102,3.099,3.095,3.09,3.087,3.086,3.08,3.074,3.056,3.055,3.052,3.05,3.043,3.04,3.037,3.032,3.031,3.009,3.003,2.992,2.984,2.981,2.973,2.947,2.946,2.928,2.922,2.917,2.841,2.576],["nuclear factor of kappa light polypeptide gene enhancer in B-cells inhibitor, alpha","MYC associated factor X","nuclear factor of kappa light polypeptide gene enhancer in B-cells 1","tumor protein p53","TNF receptor-associated factor 6, E3 ubiquitin protein ligase","CD40 ligand","MALT1 paracaspase","CD40 molecule, TNF receptor superfamily member 5","tyrosine kinase 2","toll-like receptor adaptor molecule 1","v-myc avian myelocytomatosis viral oncogene homolog","LYN proto-oncogene, Src family tyrosine kinase","v-rel avian reticuloendotheliosis viral oncogene homolog A","v-rel avian reticuloendotheliosis viral oncogene homolog B","caspase recruitment domain family, member 11","protein kinase C, beta","3-phosphoinositide dependent protein kinase 1","inhibitor of kappa light polypeptide gene enhancer in B-cells, kinase epsilon","baculoviral IAP repeat containing 3","receptor-interacting serine-threonine kinase 3","CREB binding protein","toll-like receptor 3","Z-DNA binding protein 1","myeloid differentiation primary response 88","SRC proto-oncogene, non-receptor tyrosine kinase","nuclear factor of kappa light polypeptide gene enhancer in B-cells 2 (p49/p100)","mitogen-activated protein kinase 14","B-cell CLL/lymphoma 3","LCK proto-oncogene, Src family tyrosine kinase","phosphatidylinositol-4,5-bisphosphate 3-kinase, catalytic subunit alpha","inhibitor of kappa light polypeptide gene enhancer in B-cells, kinase beta","TNF receptor-associated factor 3","TNF receptor-associated factor 1","CASP8 and FADD-like apoptosis regulator","conserved helix-loop-helix ubiquitous kinase","phosphoinositide-3-kinase, regulatory subunit 1 (alpha)","F-box and WD repeat domain containing 11","inhibitor of kappa light polypeptide gene enhancer in B-cells, kinase gamma","TANK-binding kinase 1","nuclear factor of kappa light polypeptide gene enhancer in B-cells inhibitor, beta","B-cell CLL/lymphoma 10","receptor (TNFRSF)-interacting serine-threonine kinase 1","protein kinase C, zeta","protein kinase C, alpha","TNF receptor-associated factor 2","sequestosome 1","Janus kinase 2","tumor necrosis factor receptor superfamily, member 1A","mechanistic target of rapamycin (serine/threonine kinase)","glyceraldehyde-3-phosphate dehydrogenase","mitogen-activated protein kinase 3","catenin (cadherin-associated protein), beta 1, 88kDa","protein kinase, cAMP-dependent, catalytic, alpha"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Target<\/th>\n      <th>Rank<\/th>\n      <th>Rating<\/th>\n      <th>Description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"searchHighlight":true,"dom":"Bfrtip","buttons":["csv","copy"],"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
             </section>
@@ -218,8 +226,8 @@ Figure 1.1: Logo designed for the project webpage here (<a href="https://23verse
           </div>
         </div>
       </div>
-
-<a href="genetic-prioritisation.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="genetic-prioritisation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cross-disease-comparisons.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
