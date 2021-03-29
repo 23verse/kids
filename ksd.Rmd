@@ -31,7 +31,7 @@ knitr::opts_chunk$set(eval=F)
 
 # Overview {#index}
 
-```{r logo, fig.cap="", fig.width=8.25, fig.height=4, echo=FALSE, eval=T, fig.align="left",out.width="50%"}
+```{r logo, fig.cap="", fig.width=8.25, fig.height=4, echo=FALSE, eval=T, fig.align="left",out.width="40%"}
 library(png)
 library(grid)
 img <- readPNG("booklet.KSD.logo.png")
