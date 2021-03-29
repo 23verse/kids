@@ -31,14 +31,14 @@ knitr::opts_chunk$set(eval=F)
 
 # Overview {#index}
 
-## Contribution
-
-```{r logo, fig.cap="Logo designed for the project webpage here (https://23verse.github.io/kids).", fig.width=9.7, fig.height=6, echo=FALSE, eval=T, fig.align="center",out.width="30%"}
+```{r logo, fig.cap="", fig.width=8.25, fig.height=4, echo=FALSE, eval=T, fig.align="left",out.width="50%"}
 library(png)
 library(grid)
 img <- readPNG("booklet.KSD.logo.png")
 grid.raster(img)
 ```
+
+## Contribution
 
 Inflammatory response plays a key role in kidney stone formation, and targeting innate immunity is an increasingly appreciated immunotherapeutic strategy in treating and preventing kidney stone disease. This study shows that identification of crosstalk between inflammatory pathways underlying disease risk can inform therapeutic targets for rational drug selection. To highlight this utility, we identify ulixertinib and losmapimod, two inhibitors of inflammatory mediators that are now under clinical investigation. An atlas of genetic targets, together with candidate drugs we reposition here, can be of translational use to manage kidney stones for years to come.
 
@@ -287,11 +287,15 @@ sBase <- sMap %>% sDmatCluster()
 sWriteData(sMap, data, sBase, keep.data=T) %>% transmute(Target=ID, Index=str_c('H',Hexagon_index), Cluster=str_c('C',Cluster_base), KSD,AS,PSO,UC,CRO,RA,MS,SLE,T1D) %>% write_delim('outputs/crossdisease_suprahex.txt', delim='\t')
 ```
 
-## Gene clusters
+## Clustered genes
 
 Clustered genes identified above (`crossdisease_suprahex.txt`) can be explored:
 
 ```{r, echo=FALSE, eval=T}
 read_delim("crossdisease_suprahex.txt", delim="\t") %>% arrange(Cluster,Index,Target) %>% mutate_at(c('KSD','AS','PSO','UC','CRO','RA','MS','SLE','T1D'), 
-function(x) signif(x,digits=3)) %>% DT::datatable(options=list(pageLength=10,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+function(x) signif(x,digits=3)) -> df
+
+#df %>% DT::datatable(options=list(pageLength=10,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons'))
+
+df %>% DT::datatable(options=list(pageLength=10,searchHighlight=T,dom='Bfrtip',buttons=c('csv','copy'), dom='t',scrollX=T,fixedColumns=list(leftColumns=3)), style='default', caption="", rownames=FALSE, escape=F, extensions=c('Buttons','FixedColumns'))
 ```

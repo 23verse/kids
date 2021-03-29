@@ -1,4 +1,3 @@
-fig:logo
 fig:manhattan
 fig:crosstalk
 fig:suprahex
@@ -14,4 +13,4 @@ identify-crosstalk
 crosstalk-genes
 cross-disease-comparisons
 do-comparison
-gene-clusters
+clustered-genes
