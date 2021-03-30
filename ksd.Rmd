@@ -60,7 +60,6 @@ library(tidyverse)
 
 ## load
 load("now.KSD_booklet.RData")
-
 ## save
 save(list=ls(), file="now.KSD_booklet.RData", compress="xz")
 
@@ -131,11 +130,6 @@ git push origin main
 # visit https://github.com/23verse/kids/settings -> GitHub Pages (main/root)
 # Alive (https://23verse.github.io/kids): Genetic target prioritisation in nephrolithiasis
 ####################################################
-
-ssh-keygen -t ed25519 -C "hfang.shanghai@gmail.com"
-cat ~/.ssh/id_ed25519.pub
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINwDcBiy9B/F0Snz+CtHJ2u15nDyaL/WVyVC4GDU1t1h hfang.shanghai@gmail.com
-
 ```
 
 ```{r, eval=F, echo=F}
@@ -159,7 +153,13 @@ cp ~/Databases/grant_app/jobs/Oxford/Oxford_Wellcome_Trust_Centre_for_Human_Gene
 
 ## Crosstalk.approved_phased.txt
 cp ~/Databases/grant_app/jobs/Oxford/Oxford_Wellcome_Trust_Centre_for_Human_Genetics/ULTRA-DD/FrontierImmunology/KidneyStone/Crosstalk.approved_phased.txt ~/Sites/XGR/KSD/BOOKLET
+```
 
+
+```{r, eval=F, echo=F}
+cd ~/Databases/grant_app/jobs/Oxford/Oxford_Wellcome_Trust_Centre_for_Human_Genetics/ULTRA-DD/FrontierImmunology/KidneyStone
+scp ./inputs/KSD_gwas_data.txt.gz galahad.well.ox.ac.uk:/var/www/bigdata
+scp ./outputs/crossdisease_matrix.txt galahad.well.ox.ac.uk:/var/www/bigdata
 ```
 
 # Genetic prioritisation
@@ -187,12 +187,13 @@ BiocManager::install(c('Pi','tidyverse'))
 # load packages
 library(Pi)
 library(tidyverse)
+RData.location <- "http://galahad.well.ox.ac.uk/bigdata"
 
 # read GWAS summary data
-data <- read_delim('inputs/KSD_gwas_data.txt.gz', delim='\t') %>% as.data.frame()
+data.file <- file.path(RData.location, "KSD_gwas_data.txt.gz")
+data <- read_delim(data.file, delim='\t') %>% as.data.frame()
 
 # pre-define parameters and built-in datasets
-RData.location <- "~/Sites/SVN/github/bigdata"
 guid <- 'gskpn'
 LD.customised <- xRDataLoader('GWAS_LD', guid=guid)$EUR %>% xSM2DF()
 significance.threshold <- 5e-8
@@ -213,7 +214,7 @@ ls_pNode <- Filter(Negate(is.null), ls_pNode_genomic)
 dTarget <- xPierMatrix(ls_pNode, displayBy="pvalue", aggregateBy="fishers", RData.location=RData.location)
 
 # write into a file 'KSD_priority.txt.gz'
-dTarget$priority %>% select(name,rank,rating,description) %>% write_delim('outputs/KSD_priority.txt.gz', delim='\t')
+dTarget$priority %>% select(name,rank,rating,description) %>% write_delim('KSD_priority.txt.gz', delim='\t')
 ```
 
 ## Prioritised genes
@@ -250,7 +251,7 @@ ig2 <- dNetInduce(g=ig, nodes_query=V(ig)$name) %>% as.undirected()
 subg <- xPierSubnet(dTarget, network.customised=ig2, subnet.size=50)
 
 # write into a file 'subg_nodes.txt'
-dTarget$priority %>% select(name,rank,rating,description) %>% semi_join(tibble(name=V(subg)$name), by='name') %>% write_delim("outputs/subg_nodes.txt", delim='\t')
+dTarget$priority %>% select(name,rank,rating,description) %>% semi_join(tibble(name=V(subg)$name), by='name') %>% write_delim("subg_nodes.txt", delim='\t')
 ```
 
 ## Crosstalk genes
@@ -275,7 +276,8 @@ grid.raster(img)
 
 ```{r, eval=F, echo=T}
 # read cross-disease prioritisation matrix
-data <- read_delim('outputs/crossdisease_matrix.txt', delim='\t') %>% column_to_rownames('target')
+data.file <- file.path(RData.location, "crossdisease_matrix.txt")
+data <- read_delim(data.file, delim='\t') %>% column_to_rownames('target')
 
 # analysed using the self-organising learning algorithm
 sMap <- data %>% sPipeline(scaling=1)
@@ -284,7 +286,7 @@ sMap <- data %>% sPipeline(scaling=1)
 sBase <- sMap %>% sDmatCluster()
 
 # write into a file 'crossdisease_suprahex.txt'
-sWriteData(sMap, data, sBase, keep.data=T) %>% transmute(Target=ID, Index=str_c('H',Hexagon_index), Cluster=str_c('C',Cluster_base), KSD,AS,PSO,UC,CRO,RA,MS,SLE,T1D) %>% write_delim('outputs/crossdisease_suprahex.txt', delim='\t')
+sWriteData(sMap, data, sBase, keep.data=T) %>% transmute(Target=ID, Index=str_c('H',Hexagon_index), Cluster=str_c('C',Cluster_base), KSD,AS,PSO,UC,CRO,RA,MS,SLE,T1D) %>% write_delim('crossdisease_suprahex.txt', delim='\t')
 ```
 
 ## Clustered genes
