@@ -240,7 +240,7 @@ grid.raster(img)
 ```{r, eval=F, echo=T}
 # gene interaction information merged from KEGG pathways
 ls_ig <- lapply(c("KEGG_environmental","KEGG_organismal"), function(network){
-	g <- xDefineNet(network=network, guid=guid)
+	g <- xDefineNet(network, guid=guid)
 })
 ig <- xCombineNet(ls_ig)
 
