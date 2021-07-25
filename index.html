@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Genetic prioritisation, therapeutic repositioning and cross-disease comparisons reveal inflammatory targets tractable for kidney stone disease</title>
   <meta name="description" content="Genetic prioritisation, therapeutic repositioning and cross-disease comparisons reveal inflammatory targets tractable for kidney stone disease" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Genetic prioritisation, therapeutic repositioning and cross-disease comparisons reveal inflammatory targets tractable for kidney stone disease" />
   <meta property="og:type" content="book" />
@@ -31,7 +31,7 @@
   
 
 <link rel="next" href="genetic-prioritisation.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -49,9 +49,11 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.17/datatables.js"></script>
+<script src="libs/datatables-binding-0.18/datatables.js"></script>
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
@@ -135,6 +137,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 </head>
 
 <body>
@@ -204,9 +207,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="abstract" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Abstract</h2>
 <ul>
-<li><p><strong>Background</strong>: Formation of kidney stones resulting in urological disorders remains a major cause of morbidity in renal diseases and many others. Innate immunity, mainly inflammasome, has demonstrated a key role in the development of <a href="https://www.nhs.uk/conditions/Kidney-stones/">kidney stone disease</a> (or <code>nephrolithiasis</code>) but a molecular rationale for therapeutic intervention targeting immunity is far from clear. We reason that identifying inflammatory gene networks underlying risk of nephrolithiasis would inform therapeutic targets for rational drug selection.</p></li>
-<li><p><strong>Results</strong>: Using our recently established genetics-led target prioritisation approach (<a href="https://pubmed.ncbi.nlm.nih.gov/31253980">Pi</a>) applied to summary data from genome-wide association studies in nephrolithiasis (for example, <a href="https://pubmed.ncbi.nlm.nih.gov/31729369">the most recent</a>), we generated a ranked list of ~12,500 target genes (see <a href="genetic-prioritisation.html#genetic-prioritisation">Genetic prioritisation</a>), with the top ranked targets highly enriched for genes involved in the NF-kB regulation, including interaction neighbors of inflammasome genes. We identified a network of highly ranked and interconnecting genes that are of functional relevance to nephrolithiasis, such as those involved in autophagy (MTOR and SQSTM1). The identified network forms a cohesive crosstalk between inflammatory pathways (see <a href="pathway-crosstalk.html#pathway-crosstalk">Pathway crosstalk</a>) that can be utilised for therapeutic repositioning. Coupled with removal analysis, these crosstalk genes can be also useful for combinatorial drug selection, including identification of ulixertinib (targeting MAPK3) and losmapimod (targeting MAPK14) that are both under clinical investigation as inhibitors of inflammatory mediators. Finally, we performed cross-disease comparisons and druggable pocket predictions, identifying inflammatory targets that are specific to and tractable for nephrolithiasis (see <a href="cross-disease-comparisons.html#cross-disease-comparisons">Cross-disease comparisons</a>).</p></li>
-<li><p><strong>Conclusion</strong>: Taken together, genetic targets prioritised and candidate drugs repositioned in this study provide the rich information of how to target innate immune pathways, with the potential of advancing immunotherapeutic strategies for nephrolithiasis. The data supporting our findings are made publicly available at <a href="https://23verse.github.io/kids" class="uri">https://23verse.github.io/kids</a>. Please email <a href="mailto:fh12355@rjh.com.cn">us</a> for more information.</p></li>
+<li><p><strong>Background</strong>: Formation of kidney stones resulting in urological disorders remains a major cause of morbidity in renal diseases and many others. Innate immunity, mainly inflammasome, has demonstrated a key role in the development of <a href="https://www.nhs.uk/conditions/Kidney-stones/">kidney stone disease</a> (or <code>nephrolithiasis</code>) but a molecular rationale for therapeutic intervention targeting immunity is far from clear. We reason that identifying inflammatory gene networks underlying disease risk would inform immunotherapeutic targets for candidate drug discovery.</p></li>
+<li><p><strong>Results</strong>: Using our recently established genetics-led target prioritisation approach (<a href="https://pubmed.ncbi.nlm.nih.gov/31253980">Pi</a>) applied to summary data from genome-wide association studies in nephrolithiasis (for example, <a href="https://pubmed.ncbi.nlm.nih.gov/31729369">the most recent</a>), we generated an atlas of genetic target prioritisation containing a ranked list of ~12,500 target genes (see <a href="genetic-prioritisation.html#genetic-prioritisation">Genetic prioritisation</a>), with the top ranked targets highly enriched for genes involved in the NF-kB regulation, including interaction neighbors of inflammasome genes. We identified a network of highly ranked and interconnecting genes that are of functional relevance to nephrolithiasis, such as those involved in autophagy (MTOR and SQSTM1). The identified network forms a cohesive crosstalk between inflammatory pathways (see <a href="pathway-crosstalk.html#pathway-crosstalk">Pathway crosstalk</a>) that can be utilised for therapeutic repositioning. Coupled with removal analysis, these crosstalk genes can be also useful for combinatorial drug selection, including identification of ulixertinib (targeting MAPK3) and losmapimod (targeting MAPK14) that are both under clinical investigation as inhibitors of inflammatory mediators. Finally, we performed cross-disease comparisons and druggable pocket predictions, identifying inflammatory targets that are specific to and tractable for nephrolithiasis (see <a href="cross-disease-comparisons.html#cross-disease-comparisons">Cross-disease comparisons</a>).</p></li>
+<li><p><strong>Conclusion</strong>: Genetic targets and candidate drugs, in silico identified in this study, provide the rich information of how to target innate immune pathways, with the potential of advancing immunotherapeutic strategies for nephrolithiasis. The data supporting our findings are made publicly available at <a href="https://23verse.github.io/kids" class="uri">https://23verse.github.io/kids</a>. Please email <a href="mailto:fh12355@rjh.com.cn">us</a> for more information.</p></li>
 </ul>
 </div>
 </div>
@@ -239,6 +242,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
